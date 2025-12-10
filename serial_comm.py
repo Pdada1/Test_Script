@@ -16,8 +16,9 @@ threading.Thread(target=reader, args=(ser,), daemon=True).start()
 
 l_on  = b"LED ON\r\n"
 l_off = b"LED OFF\r\n"
-
-while True:
+stop = b"STOP\r\n"
+count=0
+while count<=5:
     print("PC: sending LED ON")
     ser.write(l_on)
     ser.flush()
@@ -27,3 +28,9 @@ while True:
     ser.write(l_off)
     ser.flush()
     time.sleep(1)
+    if count == 5:
+        ser.write(stop)
+        ser.flush()
+    count+=1
+time.sleep(2)
+
